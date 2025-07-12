@@ -1,0 +1,55 @@
+services:
+  db:
+    image: mariadb:latest
+    env_file:
+      - .env
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - default
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /app
+          ignore:
+            - node_modules
+    networks:
+      - default
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    develop:
+      watch:
+        - action: rebuild
+          path: ./backend
+          target: /app
+          ignore:
+            - node_modules
+    depends_on:
+      - db
+    networks:
+      - default
+
+volumes:
+  db_data:
+
+
+networks:
+  default:
+    driver: bridge

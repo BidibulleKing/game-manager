@@ -1,0 +1,23 @@
+{
+  "width": 344,
+  "height": 102,
+  "cx": [
+    [ "GAME", 32 ],
+    [ "PLAYS", 129 ],
+    [ "PLAYER", 231 ],
+    [ "LIKE", 313 ]
+  ],
+  "cy": [
+    [ "GAME", 51 ],
+    [ "PLAYS", 51 ],
+    [ "PLAYER", 51 ],
+    [ "LIKE", 51 ]
+  ],
+  "shift": [
+    [ "PLAYS,GAME,0", 0 ],
+    [ "PLAYS,PLAYER,0", 0 ],
+    [ "LIKE,PLAYER,-1_0", 0 ],
+    [ "LIKE,PLAYER,1_0", 0 ]
+  ],
+  "ratio": []
+}

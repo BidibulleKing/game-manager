@@ -1,0 +1,4 @@
+GAME: title, cover
+PLAYS, 0N GAME, 1N PLAYER: rating, time_spent, added_at
+PLAYER: tag, picture
+LIKE, 0N PLAYER, 0N PLAYER

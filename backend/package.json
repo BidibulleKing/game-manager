@@ -1,0 +1,26 @@
+{
+	"name": "game-manager-backend",
+	"version": "1.0.0",
+	"description": "Game Manager Backend API",
+	"main": "server.js",
+	"scripts": {
+		"start": "bun server.js",
+		"dev": "bun --watch server.js",
+		"test": "jest",
+		"migrate": "bun x knex migrate:latest",
+		"migrate:rollback": "bun x knex migrate:rollback",
+		"migrate:status": "bun x knex migrate:status",
+		"migrate:make": "bun x knex migrate:make"
+	},
+	"dependencies": {
+		"bookshelf": "^1.2.0",
+		"cors": "^2.8.5",
+		"dotenv": "^16.3.1",
+		"express": "^5.1.0",
+		"knex": "^3.1.0",
+		"mysql": "^2.18.1"
+	},
+	"devDependencies": {
+		"jest": "^29.0.0"
+	}
+}
