@@ -2,7 +2,7 @@ import { Route } from 'wouter'
 import './App.css'
 import Layout from './layouts/Layout'
 import Games from './pages/games/Games'
-import Players from './pages/Players'
+import Players from './pages/players/Players'
 import Library from './pages/Library'
 import Account from './pages/Account'
 

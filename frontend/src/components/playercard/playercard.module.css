@@ -1,0 +1,46 @@
+.playerCard {
+	position: relative;
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+	border: var(--border-width) solid var(--color-primary);
+	border-radius: 100%;
+	text-align: center;
+}
+
+.avatar {
+	width: inherit;
+	height: inherit;
+	object-fit: cover;
+}
+
+.info {
+	/* z-index: -1; */
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	background-color: var(--color-accent-background);
+	backdrop-filter: blur(5px);
+}
+
+.scores {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+.scores span {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 0.5rem;
+}
+.scores svg {
+	width: 1.2rem;
+	height: 1.2rem;
+}

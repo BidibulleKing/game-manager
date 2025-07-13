@@ -1,12 +1,12 @@
+import type { GameType } from "../../types/GameType";
 import GameCard from "../gamecard/GameCard";
-import type { GameCardType } from "../gamecard/GameCardType";
 import styles from "./cardlistpreview.module.css";
 
-export default function CardListPreview({ cards }: { cards: GameCardType[] }) {
+export default function CardListPreview({ games }: { games: GameType[] }) {
 	return (
 		<div className={styles.cardList}>
-			{cards.map((card, index) => (
-				<GameCard key={index} card={card} />
+			{games.map((game, index) => (
+				<GameCard key={index} game={game} />
 			))}
 		</div>
 	);
