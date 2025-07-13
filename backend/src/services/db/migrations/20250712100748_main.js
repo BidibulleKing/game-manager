@@ -7,13 +7,13 @@ exports.up = function (knex) {
 		.createTable("games", (table) => {
 			table.increments("id").primary();
 			table.string("title").notNullable();
-			table.string("cover");
+			table.string("cover").nullable();
 			table.timestamps(true, true);
 		})
 		.createTable("players", (table) => {
 			table.increments("id").primary();
 			table.string("tag").notNullable();
-			table.string("avatar");
+			table.string("avatar").nullable();
 			table.timestamps(true, true);
 		})
 		.createTable("game_player", (table) => {
@@ -30,8 +30,8 @@ exports.up = function (knex) {
 				.inTable("players")
 				.onDelete("CASCADE");
 			table.primary(["game_id", "player_id"]);
-			table.decimal("rating");
-			table.float("minutes_spent");
+			table.decimal("rating").notNullable();
+			table.float("minutes_spent").notNullable();
 			table.timestamp("added_at").defaultTo(knex.fn.now());
 		});
 };
