@@ -1,0 +1,8 @@
+.tabs {
+	margin: 1rem;
+	text-align: center;
+	list-style: none;
+}
+.tabs li {
+	padding-block: 0.5rem;
+}
