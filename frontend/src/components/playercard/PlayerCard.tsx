@@ -1,6 +1,7 @@
 import Clock from "../icons/Clock";
 import type { PlayerType } from "../../types/PlayerType";
 import styles from './playercard.module.css';
+import { formatMinutes } from "../../services/timeFormatter.ts";
 
 export default function PlayerCard({ card }: { card: PlayerType }) {
 	return (
@@ -11,7 +12,7 @@ export default function PlayerCard({ card }: { card: PlayerType }) {
 				<h3 className={styles.tag}>{card.tag}</h3>
 
 				<span className={styles.scores}>
-					{card.minutesSpent} <Clock />
+					{formatMinutes(card.minutesSpent)} <Clock />
 				</span>
 			</div>
 		</article>
