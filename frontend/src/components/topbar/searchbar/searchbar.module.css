@@ -6,3 +6,9 @@
 	color: var(--color-primary);
 	background-color: var(--color-neutral);
 }
+
+@media screen and (min-width: 768px) {
+	.searchbar {
+		width: 40%;
+	}
+}

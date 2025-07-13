@@ -5,3 +5,9 @@
 	border-radius: 6px;
 	background-color: var(--color-neutral);
 }
+
+@media screen and (min-width: 768px) {
+	.sortbar {
+		width: 20%;
+	}
+}

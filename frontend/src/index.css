@@ -11,13 +11,18 @@
 	--color-secondary: #f38a75;
 	--color-background: #fdefec;
 	--color-accent: #47c4f2;
+	--color-accent-background: rgba(71, 196, 242, 0.8);
 	--color-neutral: #cff0fc;
 	--color-error: #f03e3e;
 	--color-success: #c9f299;
+	--border-radius: 6px;
+	--border-width: 4px;
+	--font-family-title: "VT323", monospace;
+	--font-family-body: "IBM Plex Sans", sans-serif;
 }
 
 body {
-	font-family: "IBM Plex Sans", sans-serif;
+	font-family: var(--font-family-body);
 	background-color: var(--color-background);
 	color: var(--color-primary);
 }

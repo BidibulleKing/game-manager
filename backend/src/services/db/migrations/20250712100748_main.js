@@ -30,6 +30,9 @@ exports.up = function (knex) {
 				.inTable("players")
 				.onDelete("CASCADE");
 			table.primary(["game_id", "player_id"]);
+			table.decimal("rating");
+			table.float("minutes_spent");
+			table.timestamp("added_at").defaultTo(knex.fn.now());
 		});
 };
 

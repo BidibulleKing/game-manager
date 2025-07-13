@@ -2,3 +2,19 @@
 	color: var(--color-primary);
 	text-decoration: none;
 }
+
+@media screen and (min-width: 768px) {
+	.tab {
+		padding: 0.7rem 2rem;
+		border: var(--border-width) solid var(--color-primary);
+		border-bottom: none;
+		border-radius: var(--border-radius) var(--border-radius) 0 0;
+		background-color: var(--color-neutral);
+		transition: padding-top 0.3s ease-in-out,
+			background-color 0.3s ease-in-out;
+	}
+	.tabActive {
+		background-color: var(--color-accent);
+		padding-top: 1rem;
+	}
+}
