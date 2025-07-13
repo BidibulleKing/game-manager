@@ -7,6 +7,9 @@
 	border-radius: 100%;
 	text-align: center;
 }
+.playerCard:hover .info {
+	opacity: 1;
+}
 
 .avatar {
 	width: inherit;
@@ -15,30 +18,27 @@
 }
 
 .info {
-	/* z-index: -1; */
 	position: absolute;
 	top: 0;
 	left: 0;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: center;
+	gap: 1rem;
 	width: 100%;
 	height: 100%;
 	padding: 10px;
 	background-color: var(--color-accent-background);
+	opacity: 0;
 	backdrop-filter: blur(5px);
+	transition: opacity 0.3s ease-in-out;
 }
 
 .scores {
 	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
-}
-.scores span {
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	gap: 0.5rem;
+	justify-content: center;
+	align-items: flex-end;
+	gap: 0.3rem;
 }
 .scores svg {
 	width: 1.2rem;

@@ -5,3 +5,14 @@
 .section h2 {
 	margin-bottom: 1rem;
 }
+
+.cardList {
+	display: flex;
+	overflow-x: scroll;
+	white-space: nowrap;
+	scroll-behavior: smooth;
+	gap: 10px;
+}
+.cardList > * {
+	flex: 0 0 auto;
+}

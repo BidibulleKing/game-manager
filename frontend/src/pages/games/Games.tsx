@@ -1,7 +1,7 @@
-import CardListPreview from "../../components/cardlistpreview/CardListPreview";
 import type { GameType } from "../../types/GameType";
 import Topbar from "../../components/topbar/Topbar";
 import styles from './games.module.css';
+import GameCard from "../../components/gamecard/GameCard";
 
 export default function Games() {
 	// TODO: Fetch games from the API
@@ -40,12 +40,22 @@ export default function Games() {
 
 			<section className={styles.section}>
 				<h2>Les plus joués</h2>
-				<CardListPreview games={mostPlayed} />
+
+				<div className={styles.cardList}>
+					{mostPlayed.map((game, index) => (
+						<GameCard key={index} game={game} />
+					))}
+				</div>
 			</section>
 
 			<section className={styles.section}>
 				<h2>Les mieux notés</h2>
-				<CardListPreview games={bestRated} />
+
+				<div className={styles.cardList}>
+					{bestRated.map((game, index) => (
+						<GameCard key={index} game={game} />
+					))}
+				</div>
 			</section>
 		</>
 	);

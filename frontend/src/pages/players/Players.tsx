@@ -1,6 +1,7 @@
 import PlayerCard from "../../components/playercard/PlayerCard";
 import type { PlayerType } from "../../types/PlayerType";
 import Topbar from "../../components/topbar/Topbar";
+import styles from './players.module.css';
 
 export default function Players() {
 	const players: PlayerType[] = [
@@ -21,9 +22,13 @@ export default function Players() {
 			<Topbar />
 
 			<section>
-				{players.map((player) => (
-					<PlayerCard key={player.tag} card={player} />
-				))}
+				<ul className={styles.playerList}>
+					{players.map((player) => (
+						<li key={player.tag}>
+							<PlayerCard card={player} />
+						</li>
+					))}
+				</ul>
 			</section>
 		</>
 	);
