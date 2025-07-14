@@ -8,5 +8,8 @@ module.exports = {
 			directory: "./src/services/db/migrations",
 			tableName: "knex_migrations",
 		},
+		seeds: {
+			directory: "./src/services/db/seeds",
+		},
 	},
 };
