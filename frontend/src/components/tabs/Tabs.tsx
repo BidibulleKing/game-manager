@@ -13,9 +13,6 @@ export default function Tabs() {
 			<li>
 				<Tab route="/library" label="Library" />
 			</li>
-			<li>
-				<Tab route="/account" label="Account" />
-			</li>
 		</ul>
 	);
 }

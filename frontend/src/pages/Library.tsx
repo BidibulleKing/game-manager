@@ -1,38 +1,28 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../hooks/useAuth";
 import type { GameType } from "../types/GameType";
 import Topbar from "../components/topbar/Topbar";
 import styles from './Library.module.css';
 import GameCard from "../components/gamecard/GameCard";
 import { gameApi } from "../services/api";
+import AuthModal from "../components/auth/AuthModal";
 
 export default function Library() {
+	const { isAuthenticated, loading: authLoading } = useAuth();
 	const [mostPlayed, setMostPlayed] = useState<GameType[]>([]);
 	const [bestRated, setBestRated] = useState<GameType[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-	// Simulation d'authentification - pour le moment, toujours false
-	// TODO: Implémenter un vrai système d'authentification
-	useEffect(() => {
-		// Simulation d'une vérification d'authentification
-		const checkAuth = () => {
-			// Pour le moment, on considère que l'utilisateur n'est pas authentifié
-			setIsAuthenticated(false);
-		};
-		checkAuth();
-	}, []);
+	const [showAuthModal, setShowAuthModal] = useState(false);
 
 	useEffect(() => {
-		if (!isAuthenticated) return;
+		if (!isAuthenticated || authLoading) return;
 
 		const fetchUserGames = async () => {
 			try {
 				setLoading(true);
 				setError(null);
 
-				// TODO: Remplacer par des appels API spécifiques à la bibliothèque utilisateur
-				// Pour le moment, on utilise les mêmes endpoints que la page Games
 				const mostPlayedResponse = await gameApi.getAll({
 					sortBy: 'minutes_spent',
 					limit: 6
@@ -54,22 +44,22 @@ export default function Library() {
 		};
 
 		fetchUserGames();
-	}, [isAuthenticated]);
-
-	const handleLogin = () => {
-		// TODO: Implémenter la logique de connexion
-		console.log('Connexion demandée');
-		// Pour le moment, on simule une connexion réussie
-		setIsAuthenticated(true);
-	};
+	}, [isAuthenticated, authLoading]);
 
 	const handleAddGame = () => {
-		// TODO: Implémenter la logique d'ajout de jeu
 		console.log('Ajout de jeu demandé');
 		alert('Fonctionnalité d\'ajout de jeu à implémenter');
 	};
 
-	// Si l'utilisateur n'est pas authentifié, afficher l'écran de connexion
+	if (authLoading) {
+		return (
+			<>
+				<Topbar />
+				<div className={styles.loading}>Chargement...</div>
+			</>
+		);
+	}
+
 	if (!isAuthenticated) {
 		return (
 			<>
@@ -77,10 +67,14 @@ export default function Library() {
 				<div className={styles.authSection}>
 					<h2>Connexion requise</h2>
 					<p>Vous devez être connecté pour accéder à votre bibliothèque de jeux.</p>
-					<button className={styles.mainButton} onClick={handleLogin}>
+					<button className={styles.mainButton} onClick={() => setShowAuthModal(true)}>
 						Se connecter
 					</button>
 				</div>
+				<AuthModal
+					isOpen={showAuthModal}
+					onClose={() => setShowAuthModal(false)}
+				/>
 			</>
 		);
 	}
@@ -111,7 +105,6 @@ export default function Library() {
 				</button>
 			</Topbar>
 
-
 			<section className={styles.section}>
 				<div className={styles.sectionHeader}>
 					<h2>Mes jeux les plus joués</h2>
@@ -124,7 +117,6 @@ export default function Library() {
 							game={game}
 							showEditButton={true}
 							onEdit={() => {
-								// TODO: Implémenter la logique d'édition
 								console.log('Édition du jeu:', game.title);
 								alert(`Édition du jeu "${game.title}" à implémenter`);
 							}}
@@ -145,7 +137,6 @@ export default function Library() {
 							game={game}
 							showEditButton={true}
 							onEdit={() => {
-								// TODO: Implémenter la logique d'édition
 								console.log('Édition du jeu:', game.title);
 								alert(`Édition du jeu "${game.title}" à implémenter`);
 							}}

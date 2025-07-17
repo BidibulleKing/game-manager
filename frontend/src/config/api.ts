@@ -11,6 +11,7 @@ export const API_CONFIG = {
 	ENDPOINTS: {
 		GAMES: '/api/games',
 		PLAYERS: '/api/players',
+		AUTH: '/api/auth',
 	},
 
 	PAGINATION: {
@@ -30,10 +31,17 @@ export const getApiUrl = (endpoint: string): string => {
 };
 
 export const getHeaders = (customHeaders?: Record<string, string>): Record<string, string> => {
-	return {
+	const headers: Record<string, string> = {
 		...API_CONFIG.DEFAULT_HEADERS,
 		...customHeaders,
 	};
+
+	const token = localStorage.getItem('auth_token');
+	if (token) {
+		headers['Authorization'] = `Bearer ${token}`;
+	}
+
+	return headers;
 };
 
 export default API_CONFIG;

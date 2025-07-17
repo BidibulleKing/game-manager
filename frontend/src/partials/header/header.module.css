@@ -18,6 +18,13 @@ header {
 	padding-inline: 2rem;
 }
 
+.navbar {
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: flex-end;
+	gap: 1rem;
+}
+
 .menu {
 	display: none;
 }
@@ -47,9 +54,52 @@ header {
 	background-color: var(--color-primary);
 }
 
+.authSection {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.userMenu {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	align-items: center;
+}
+
+.username {
+	color: var(--color-primary);
+	font-weight: bold;
+}
+
+.logoutBtn,
+.loginBtn {
+	padding: 0.5rem 1rem;
+	border: var(--border-width) solid var(--color-primary);
+	border-radius: 4px;
+	background: var(--color-background);
+	color: var(--color-primary);
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.logoutBtn:hover,
+.loginBtn:hover {
+	background: var(--color-primary);
+	color: var(--color-background);
+}
+
 @media screen and (min-width: 768px) {
 	header {
 		align-items: end;
+	}
+
+	.container {
+		justify-content: space-between;
+	}
+
+	.navbar {
+		flex-direction: row;
 	}
 
 	.menu {
@@ -61,5 +111,10 @@ header {
 
 	.burger {
 		display: none;
+	}
+
+	.userMenu {
+		flex-direction: row;
+		gap: 1rem;
 	}
 }
