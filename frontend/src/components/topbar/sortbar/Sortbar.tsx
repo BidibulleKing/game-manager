@@ -3,7 +3,7 @@ import { useLocation } from 'wouter';
 import styles from "./sortbar.module.css";
 
 interface SortbarProps {
-	onSortChange?: (sortBy: string, sortOrder: 'asc' | 'desc') => void;
+	onSortChange?: (sortBy: string) => void;
 	value?: string;
 	options?: Array<{ value: string; label: string; }>;
 }
@@ -43,18 +43,16 @@ export default function Sortbar({ onSortChange, value, options }: SortbarProps) 
 			return;
 		}
 
-		const [sortBy, sortOrder] = selectedValue.split('_');
+		const [sortBy] = selectedValue.split('_');
 
 		let finalSortBy = sortBy;
-		let finalSortOrder = sortOrder as 'asc' | 'desc';
 
-		if (sortBy === 'minutes' && (sortOrder === 'spent' || selectedValue.includes('minutes_spent'))) {
+		if (sortBy === 'minutes' && selectedValue.includes('minutes_spent')) {
 			finalSortBy = 'minutes_spent';
-			finalSortOrder = selectedValue.includes('_desc') ? 'desc' : 'asc';
 		}
 
 		if (onSortChange) {
-			onSortChange(finalSortBy, finalSortOrder);
+			onSortChange(finalSortBy);
 		} else {
 			const currentPath = window.location.pathname;
 			let resultType = 'games';
@@ -65,7 +63,6 @@ export default function Sortbar({ onSortChange, value, options }: SortbarProps) 
 
 			const searchParams = new URLSearchParams();
 			searchParams.set('sortBy', finalSortBy);
-			searchParams.set('sortOrder', finalSortOrder);
 			searchParams.set('page', '1');
 
 			setLocation(`/${resultType}/results?${searchParams.toString()}`);

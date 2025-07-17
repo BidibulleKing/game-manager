@@ -3,7 +3,7 @@ import Sortbar from "./sortbar/Sortbar";
 import styles from "./topbar.module.css";
 
 interface TopbarProps {
-	onSortChange?: (sortBy: string, sortOrder: 'asc' | 'desc') => void;
+	onSortChange?: (sortBy: string) => void;
 	sortValue?: string;
 	sortOptions?: Array<{ value: string; label: string; }>;
 }
