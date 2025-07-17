@@ -60,6 +60,8 @@
 }
 
 .title {
+	flex: 5;
+	text-wrap: wrap;
 	text-align: center;
 	text-transform: uppercase;
 	font-size: 1.5rem;
