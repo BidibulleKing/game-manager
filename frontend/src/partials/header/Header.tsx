@@ -13,19 +13,21 @@ export default function Header() {
 
 	return (
 		<header>
-			<img src="/header-logo.png" alt="Game Manager Logo" width="97" height="41" />
+			<div className={styles.container}>
+				<img src="/header-logo.png" alt="Game Manager Logo" width="97" height="41" />
 
-			<nav>
-				<button className={styles.burger} onClick={toggleMenu}>
-					<span />
-					<span />
-					<span />
-				</button>
+				<nav>
+					<button className={styles.burger} onClick={toggleMenu}>
+						<span />
+						<span />
+						<span />
+					</button>
 
-				<div className={`${styles.menu} ${menuClass}`}>
-					<Tabs />
-				</div>
-			</nav>
+					<div className={`${styles.menu} ${menuClass}`}>
+						<Tabs />
+					</div>
+				</nav>
+			</div>
 		</header>
 	);
 }

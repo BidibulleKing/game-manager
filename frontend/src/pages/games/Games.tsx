@@ -19,13 +19,11 @@ export default function Games() {
 
 				const mostPlayedResponse = await gameApi.getAll({
 					sortBy: 'minutes_spent',
-					sortOrder: 'desc',
 					limit: 6
 				});
 
 				const bestRatedResponse = await gameApi.getAll({
 					sortBy: 'rating',
-					sortOrder: 'desc',
 					limit: 6
 				});
 

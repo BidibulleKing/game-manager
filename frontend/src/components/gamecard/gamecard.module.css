@@ -32,6 +32,33 @@
 	transition: opacity 0.3s ease;
 }
 
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	width: 100%;
+}
+
+.editButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border: 2px solid var(--color-primary);
+	border-radius: 100%;
+	background-color: var(--color-secondary);
+	color: var(--color-primary);
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.editButton:hover {
+	transform: scale(1.1);
+}
+
 .title {
 	text-align: center;
 	text-transform: uppercase;

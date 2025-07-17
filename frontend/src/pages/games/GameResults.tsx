@@ -13,7 +13,6 @@ export default function GameResults() {
 			page: parseInt(urlParams.get('page') || '1'),
 			limit: parseInt(urlParams.get('limit') || '12'),
 			sortBy: urlParams.get('sortBy') || 'rating',
-			sortOrder: (urlParams.get('sortOrder') as 'asc' | 'desc') || 'desc'
 		};
 
 		setInitialParams(params);

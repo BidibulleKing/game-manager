@@ -18,7 +18,6 @@ export default function Players() {
 
 				const response = await playerApi.getAll({
 					sortBy: 'minutes_spent',
-					sortOrder: 'desc',
 					limit: 20
 				});
 
@@ -56,7 +55,9 @@ export default function Players() {
 		<>
 			<Topbar />
 
-			<section>
+			<section className={styles.section}>
+				<h1 className={styles.title}>Les plus grands joueurs</h1>
+
 				<ul className={styles.playerList}>
 					{players.map((player) => (
 						<li key={player.tag}>

@@ -6,9 +6,10 @@ interface TopbarProps {
 	onSortChange?: (sortBy: string) => void;
 	sortValue?: string;
 	sortOptions?: Array<{ value: string; label: string; }>;
+	children?: React.ReactNode;
 }
 
-export default function Topbar({ onSortChange, sortValue, sortOptions }: TopbarProps) {
+export default function Topbar({ onSortChange, sortValue, sortOptions, children }: TopbarProps) {
 	return (
 		<div className={styles.topbar}>
 			<Searchbar />
@@ -17,6 +18,7 @@ export default function Topbar({ onSortChange, sortValue, sortOptions }: TopbarP
 				value={sortValue}
 				options={sortOptions}
 			/>
+			{children}
 		</div>
 	);
 }

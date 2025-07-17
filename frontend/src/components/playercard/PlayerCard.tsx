@@ -12,7 +12,7 @@ export default function PlayerCard({ card }: { card: PlayerType }) {
 				<h3 className={styles.tag}>{card.tag}</h3>
 
 				<span className={styles.scores}>
-					{formatMinutes(card.minutesSpent)} <Clock />
+					{formatMinutes(card.minutes_spent)} <Clock />
 				</span>
 			</div>
 		</article>

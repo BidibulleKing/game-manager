@@ -8,7 +8,7 @@
 
 .cardList {
 	display: flex;
-	overflow-x: scroll;
+	overflow-x: auto;
 	white-space: nowrap;
 	scroll-behavior: smooth;
 	gap: 10px;
