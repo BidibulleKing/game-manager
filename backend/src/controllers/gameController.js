@@ -1,4 +1,3 @@
-const Game = require("../services/db/models").Game;
 const GameRepository = require("../repositories/gameRepository");
 
 const gameController = {
@@ -13,13 +12,40 @@ const gameController = {
 					sortOrder: req.query.sortOrder || "desc",
 				};
 				const result = await GameRepository.filter(queryParams);
-				res.json(result);
+
+				const formattedResult = {
+					data: result.games.models || result.games,
+					pagination: {
+						currentPage: parseInt(result.pagination.page),
+						totalPages: result.pagination.totalPages,
+						totalItems: result.pagination.total,
+						itemsPerPage: parseInt(result.pagination.limit),
+						hasNext:
+							parseInt(result.pagination.page) <
+							result.pagination.totalPages,
+						hasPrevious: parseInt(result.pagination.page) > 1,
+					},
+				};
+
+				res.json(formattedResult);
 			} else {
 				const result = await GameRepository.findAll();
-				res.json(result);
+				const games = result.models || result;
+				res.json({
+					data: games,
+					pagination: {
+						currentPage: 1,
+						totalPages: 1,
+						totalItems: games.length,
+						itemsPerPage: games.length,
+						hasNext: false,
+						hasPrevious: false,
+					},
+				});
 			}
 		} catch (error) {
-			res.status(500).json({ error: "Failed to fetch games" });
+			res.json({ error: error.message });
+			// res.status(500).json({ error: "Failed to fetch games" });
 		}
 	},
 
@@ -33,7 +59,8 @@ const gameController = {
 				res.status(404).json({ error: "Game not found" });
 			}
 		} catch (error) {
-			res.status(500).json({ error: "Failed to fetch game" });
+			res.json({ error: error.message });
+			// res.status(500).json({ error: "Failed to fetch game" });
 		}
 	},
 

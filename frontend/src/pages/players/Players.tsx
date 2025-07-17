@@ -1,21 +1,56 @@
+import { useEffect, useState } from "react";
 import PlayerCard from "../../components/playercard/PlayerCard";
 import type { PlayerType } from "../../types/PlayerType";
 import Topbar from "../../components/topbar/Topbar";
 import styles from './players.module.css';
+import { playerApi } from "../../services/api";
 
 export default function Players() {
-	const players: PlayerType[] = [
-		{
-			tag: "Player1",
-			avatar: "https://sm.ign.com/t/ign_fr/cover/a/avatar-gen/avatar-generations_bssq.600.jpg",
-			minutesSpent: 1200
-		},
-		{
-			tag: "Player2",
-			avatar: "https://sm.ign.com/t/ign_fr/cover/a/avatar-gen/avatar-generations_bssq.600.jpg",
-			minutesSpent: 800
-		}
-	];
+	const [players, setPlayers] = useState<PlayerType[]>([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState<string | null>(null);
+
+	useEffect(() => {
+		const fetchPlayers = async () => {
+			try {
+				setLoading(true);
+				setError(null);
+
+				const response = await playerApi.getAll({
+					sortBy: 'minutes_spent',
+					sortOrder: 'desc',
+					limit: 20
+				});
+
+				setPlayers(response.data);
+			} catch (err) {
+				console.error('Erreur lors du chargement des joueurs:', err);
+				setError('Impossible de charger les joueurs. Veuillez réessayer.');
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchPlayers();
+	}, []);
+
+	if (loading) {
+		return (
+			<>
+				<Topbar />
+				<div className="loading-container">Chargement des joueurs...</div>
+			</>
+		);
+	}
+
+	if (error) {
+		return (
+			<>
+				<Topbar />
+				<div className="error-container">{error}</div>
+			</>
+		);
+	}
 
 	return (
 		<>

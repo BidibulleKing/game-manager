@@ -30,3 +30,25 @@ body {
 ul {
 	list-style: none;
 }
+
+.loading-container,
+.error-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 200px;
+	font-size: 1.1rem;
+	margin: 2rem 0;
+}
+
+.loading-container {
+	color: var(--color-neutral);
+}
+
+.error-container {
+	color: var(--color-error);
+	background-color: var(--color-background);
+	border: 1px solid var(--color-error);
+	border-radius: 8px;
+	padding: 1rem;
+}

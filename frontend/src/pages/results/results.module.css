@@ -1,0 +1,106 @@
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem;
+}
+
+.header {
+	margin-bottom: 2rem;
+}
+
+.header h1 {
+	font-size: 2rem;
+	margin-bottom: 0.5rem;
+}
+
+.resultsCount {
+	font-size: 0.875rem;
+}
+
+.controls {
+	background: var(--color-background);
+	border-radius: var(--border-radius);
+	margin-bottom: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+.limitControls {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.limitControls label {
+	font-weight: 500;
+	color: #333;
+	white-space: nowrap;
+}
+
+.limitSelect {
+	padding: 0.5rem;
+	border: 1px solid var(--color-secondary);
+	border-radius: 4px;
+	background: var(--color-background);
+	cursor: pointer;
+}
+
+.limitSelect:focus {
+	outline: none;
+	border-color: var(--color-primary);
+}
+
+.resultsGrid {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+	margin-bottom: 2rem;
+}
+
+.loading {
+	text-align: center;
+	padding: 3rem;
+}
+
+.loading p {
+	font-size: 1.125rem;
+}
+
+.error {
+	text-align: center;
+	padding: 2rem;
+	background: var(--color-background);
+	border: 1px solid var(--color-error);
+	border-radius: 8px;
+	margin-bottom: 2rem;
+}
+
+.error p {
+	color: var(--color-error);
+	margin-bottom: 1rem;
+}
+
+.retryBtn {
+	padding: 0.5rem 1rem;
+	background: var(--color-primary);
+	color: var(--color-background);
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.retryBtn:hover {
+	background: var(--color-secondary);
+}
+
+.noResults {
+	text-align: center;
+	padding: 3rem;
+	color: #666;
+}
+
+.noResults p {
+	font-size: 1.125rem;
+}

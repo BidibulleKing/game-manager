@@ -1,3 +1,7 @@
+.searchForm {
+	width: 100%;
+}
+
 .searchbar {
 	width: 100%;
 	padding: 10px;
@@ -8,7 +12,11 @@
 }
 
 @media screen and (min-width: 768px) {
-	.searchbar {
+	.searchForm {
 		width: 40%;
+	}
+
+	.searchbar {
+		width: 100%;
 	}
 }
