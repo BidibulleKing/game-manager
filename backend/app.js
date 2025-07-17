@@ -18,11 +18,13 @@ app.get("/", (req, res) => {
 });
 const gameRoutes = require("./src/routes/games");
 const playerRoutes = require("./src/routes/players");
+const authRoutes = require("./src/routes/auth");
 app.use("/api/games", gameRoutes);
 app.use("/api/players", playerRoutes);
+app.use("/api/auth", authRoutes);
 
 // Error handling
-app.use(errorHandler);
 app.use(notFoundHandler);
+app.use(errorHandler);
 
 module.exports = app;

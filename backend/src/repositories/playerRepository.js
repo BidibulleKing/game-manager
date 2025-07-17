@@ -64,6 +64,10 @@ class PlayerRepository {
 		return await Player.where({ id }).fetch();
 	}
 
+	async findByTag(tag) {
+		return await Player.where({ tag }).fetch();
+	}
+
 	async create(playerData) {
 		return await Player.forge(playerData).save();
 	}

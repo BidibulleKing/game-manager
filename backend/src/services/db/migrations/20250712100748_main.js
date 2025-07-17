@@ -13,6 +13,7 @@ exports.up = function (knex) {
 		.createTable("players", (table) => {
 			table.increments("id").primary();
 			table.string("tag").notNullable();
+			table.string("password").notNullable();
 			table.string("avatar").nullable();
 			table.timestamps(true, true);
 		})
