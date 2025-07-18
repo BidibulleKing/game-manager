@@ -88,18 +88,27 @@
 	opacity: 0.9;
 }
 
-.mainButton {
+.mainButton,
+.logoutButton {
 	padding: 0.8rem 2rem;
 	border: var(--border-width) solid var(--color-primary);
 	border-radius: var(--border-radius);
-	background-color: var(--color-primary);
-	color: var(--color-neutral);
 	font-weight: bold;
 	cursor: pointer;
 	transition: all 0.3s ease;
 }
-
+.mainButton {
+	background-color: var(--color-primary);
+	color: var(--color-neutral);
+}
 .mainButton:hover {
 	background-color: var(--color-neutral);
 	color: var(--color-primary);
+}
+.logoutButton {
+	background-color: var(--color-secondary);
+}
+.logoutButton:hover {
+	background-color: var(--color-neutral);
+	color: var(--color-secondary);
 }

@@ -8,7 +8,7 @@ import { gameApi } from "../services/api";
 import AuthModal from "../components/auth/AuthModal";
 
 export default function Library() {
-	const { isAuthenticated, loading: authLoading } = useAuth();
+	const { isAuthenticated, loading: authLoading, logout } = useAuth();
 	const [mostPlayed, setMostPlayed] = useState<GameType[]>([]);
 	const [bestRated, setBestRated] = useState<GameType[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -51,6 +51,10 @@ export default function Library() {
 		alert('Fonctionnalité d\'ajout de jeu à implémenter');
 	};
 
+	const handleLogout = () => {
+		logout();
+	};
+
 	if (authLoading) {
 		return (
 			<>
@@ -64,6 +68,7 @@ export default function Library() {
 		return (
 			<>
 				<Topbar />
+
 				<div className={styles.authSection}>
 					<h2>Connexion requise</h2>
 					<p>Vous devez être connecté pour accéder à votre bibliothèque de jeux.</p>
@@ -102,6 +107,9 @@ export default function Library() {
 			<Topbar>
 				<button className={styles.mainButton} onClick={handleAddGame}>
 					+ Ajouter un jeu
+				</button>
+				<button className={styles.logoutButton} onClick={handleLogout}>
+					Se déconnecter
 				</button>
 			</Topbar>
 
