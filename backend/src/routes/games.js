@@ -5,6 +5,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 router.get("/", gameController.findAll);
 router.get("/my-games", authMiddleware, gameController.findUserGames);
+router.get("/player/:playerId", gameController.findPlayerGames);
 router.get("/:id", gameController.findById);
 
 router.post("/", authMiddleware, gameController.create);

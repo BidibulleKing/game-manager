@@ -8,7 +8,9 @@ export default function Searchbar() {
 	const [location, setLocation] = useLocation();
 
 	useEffect(() => {
-		if (location.includes('/players')) {
+		if (location.includes('/players/') && location.match(/\/players\/\d+/)) {
+			setSearchType('games');
+		} else if (location.includes('/players')) {
 			setSearchType('players');
 		} else {
 			setSearchType('games');
@@ -19,6 +21,9 @@ export default function Searchbar() {
 		if (location.includes('/library')) {
 			return 'Rechercher dans ma bibliothèque...';
 		}
+		if (location.includes('/players/') && location.match(/\/players\/\d+/)) {
+			return 'Rechercher dans les jeux du joueur...';
+		}
 		return searchType === 'players'
 			? 'Rechercher des joueurs...'
 			: 'Rechercher des jeux...';
@@ -28,6 +33,11 @@ export default function Searchbar() {
 		if (search.trim()) {
 			if (location.includes('/library')) {
 				setLocation(`/library/search?search=${encodeURIComponent(search.trim())}`);
+			} else if (location.includes('/players/') && location.match(/\/players\/\d+/)) {
+				const currentParams = new URLSearchParams(window.location.search);
+				currentParams.set('search', search.trim());
+				currentParams.set('page', '1');
+				setLocation(`${window.location.pathname}?${currentParams.toString()}`);
 			} else {
 				setLocation(`/${searchType}/search?search=${encodeURIComponent(search.trim())}`);
 			}

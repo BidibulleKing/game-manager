@@ -5,6 +5,7 @@ import Games from './pages/games/Games'
 import GameResults from './pages/games/GameResults'
 import Players from './pages/players/Players'
 import PlayerResults from './pages/players/PlayerResults'
+import PlayerProfile from './pages/players/PlayerProfile'
 import ResultsPage from './pages/results/ResultsPage'
 import Library from './pages/Library'
 import Account from './pages/Account'
@@ -18,6 +19,7 @@ function App() {
 			<Route path="/players" component={Players} />
 			<Route path="/players/search" component={PlayerResults} />
 			<Route path="/players/results" component={() => <ResultsPage type="players" title="Résultats des joueurs" />} />
+			<Route path="/players/:id" component={PlayerProfile} />
 			<Route path="/library" component={Library} />
 			<Route path="/library/search" component={() => <ResultsPage type="user-games" title="Recherche dans ma bibliothèque" />} />
 			<Route path="/account" component={Account} />

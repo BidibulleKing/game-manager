@@ -80,6 +80,38 @@ const gameController = {
 		}
 	},
 
+	findPlayerGames: async (req, res) => {
+		try {
+			const queryParams = {
+				search: req.query.search,
+				page: req.query.page || 1,
+				limit: req.query.limit || 10,
+				sortBy: req.query.sortBy || "rating",
+				sortOrder: req.query.sortOrder || "desc",
+				playerId: req.params.playerId,
+			};
+			const result = await GameRepository.filter(queryParams);
+
+			const formattedResult = {
+				data: result.games.models || result.games,
+				pagination: {
+					currentPage: parseInt(result.pagination.page),
+					totalPages: result.pagination.totalPages,
+					totalItems: result.pagination.total,
+					itemsPerPage: parseInt(result.pagination.limit),
+					hasNext:
+						parseInt(result.pagination.page) <
+						result.pagination.totalPages,
+					hasPrevious: parseInt(result.pagination.page) > 1,
+				},
+			};
+
+			res.json(formattedResult);
+		} catch (error) {
+			res.json({ error: error.message });
+		}
+	},
+
 	findById: async (req, res) => {
 		const { id } = req.params;
 		try {

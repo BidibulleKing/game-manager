@@ -2,10 +2,17 @@ import Clock from "../icons/Clock";
 import type { PlayerType } from "../../types/PlayerType";
 import styles from './playercard.module.css';
 import { formatMinutes } from "../../services/timeFormatter.ts";
+import { useLocation } from "wouter";
 
 export default function PlayerCard({ card }: { card: PlayerType }) {
+	const [, setLocation] = useLocation();
+
+	const handleClick = () => {
+		setLocation(`/players/${card.id}`);
+	};
+
 	return (
-		<article className={styles.playerCard}>
+		<article className={styles.playerCard} onClick={handleClick} style={{ cursor: 'pointer' }}>
 			<img className={styles.avatar} src={card.avatar} alt={`${card.tag}'s avatar`} />
 
 			<div className={styles.info}>

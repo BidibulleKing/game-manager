@@ -92,6 +92,11 @@ export const gameApi = {
 		return fetchApi<SearchResultType<GameType>>(url);
 	},
 
+	getPlayerGames: async (playerId: string, params?: SearchParams): Promise<SearchResultType<GameType>> => {
+		const url = buildUrl(`${API_CONFIG.ENDPOINTS.GAMES}/player/${playerId}`, params);
+		return fetchApi<SearchResultType<GameType>>(url);
+	},
+
 	/**
 	 * Get a game by ID.
 	 * 
@@ -250,11 +255,14 @@ export const api = {
 export const getDataByType = async <T extends GameType | PlayerType>(
 	type: 'games' | 'players',
 	params?: SearchParams,
-	userOnly: boolean = false
+	isUserSpecific: boolean = false,
+	playerId?: string
 ): Promise<SearchResultType<T>> => {
 	if (type === 'games') {
-		if (userOnly) {
+		if (isUserSpecific && !playerId) {
 			return gameApi.getUserGames(params) as Promise<SearchResultType<T>>;
+		} else if (playerId) {
+			return gameApi.getPlayerGames(playerId, params) as Promise<SearchResultType<T>>;
 		}
 		return gameApi.getAll(params) as Promise<SearchResultType<T>>;
 	} else {

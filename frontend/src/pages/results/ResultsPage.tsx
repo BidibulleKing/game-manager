@@ -10,23 +10,24 @@ import type { SearchParams } from '../../types/SearchResultType';
 import styles from './results.module.css';
 
 interface ResultsPageProps {
-	type: 'games' | 'players' | 'user-games';
+	type: 'games' | 'players' | 'user-games' | 'player-games';
 	title: string;
 	initialParams?: SearchParams;
 }
 
 export default function ResultsPage({ type, title, initialParams = {} }: ResultsPageProps) {
+	const playerId = type === 'player-games' ? window.location.pathname.split('/').pop() : undefined;
+
 	const defaultParams = {
 		page: 1,
 		limit: 12,
-		sortBy: (type === 'games' || type === 'user-games') ? 'rating' : 'minutes_spent',
+		sortBy: (type === 'games' || type === 'user-games' || type === 'player-games') ? 'rating' : 'minutes_spent',
 		...initialParams
 	};
 
 	const { params, updateParams } = useUrlParams(defaultParams);
-	// Pour user-games, on passe 'games' comme type mais avec un flag pour indiquer qu'on veut les jeux de l'utilisateur
-	const searchType = type === 'user-games' ? 'games' : type;
-	const { data: results, loading, error, refetch } = useSearch(searchType, params, type === 'user-games');
+	const searchType = (type === 'user-games' || type === 'player-games') ? 'games' : type;
+	const { data: results, loading, error, refetch } = useSearch(searchType, params, type === 'user-games', type === 'player-games' ? playerId : undefined);
 
 	const handlePageChange = (page: number) => {
 		updateParams({ page });
@@ -45,7 +46,7 @@ export default function ResultsPage({ type, title, initialParams = {} }: Results
 		: 'default';
 
 	const renderCard = (item: GameType | PlayerType, index: number) => {
-		if (type === 'games' || type === 'user-games') {
+		if (type === 'games' || type === 'user-games' || type === 'player-games') {
 			return <GameCard key={index} game={item as GameType} />;
 		} else {
 			return <PlayerCard key={index} card={item as PlayerType} />;

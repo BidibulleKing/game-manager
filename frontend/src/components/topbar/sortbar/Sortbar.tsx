@@ -13,7 +13,14 @@ export default function Sortbar({ onSortChange, value, options }: SortbarProps) 
 	const [currentSort, setCurrentSort] = useState(value || 'default');
 
 	const getContextualOptions = () => {
-		if (location.includes('/players')) {
+		if (location.includes('/players/') && location.match(/\/players\/\d+/)) {
+			return [
+				{ value: 'default', label: 'Trier par' },
+				{ value: 'rating_desc', label: 'Les mieux notés' },
+				{ value: 'minutes_spent_desc', label: 'Les plus joués' },
+				{ value: 'added_at_desc', label: 'Récemment ajoutés' },
+			];
+		} else if (location.includes('/players')) {
 			return [
 				{ value: 'default', label: 'Trier par' },
 				{ value: 'minutes_spent_desc', label: 'Les plus actifs' },
@@ -67,7 +74,6 @@ export default function Sortbar({ onSortChange, value, options }: SortbarProps) 
 			onSortChange(finalSortBy);
 		} else {
 			const currentPath = window.location.pathname;
-			let resultType = 'games';
 
 			if (currentPath.includes('/library')) {
 				const searchParams = new URLSearchParams();
@@ -77,6 +83,15 @@ export default function Sortbar({ onSortChange, value, options }: SortbarProps) 
 				return;
 			}
 
+			if (currentPath.includes('/players/') && currentPath.match(/\/players\/\d+/)) {
+				const currentParams = new URLSearchParams(window.location.search);
+				currentParams.set('sortBy', finalSortBy);
+				currentParams.set('page', '1');
+				setLocation(`${currentPath}?${currentParams.toString()}`);
+				return;
+			}
+
+			let resultType = 'games';
 			if (currentPath.includes('/players')) {
 				resultType = 'players';
 			}
