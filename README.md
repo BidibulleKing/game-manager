@@ -71,3 +71,7 @@ Le projet a été réalisé en environ 20 heures, réparties sur plusieurs jours
 - Développement des fonctionnalités principales : 10 heures
 - Création de l'interface utilisateur : 4 heures
 - Tests et débogage : 1 heure
+
+## Liens utiles
+
+- [Maquette Figma](https://www.figma.com/design/mJJ32yQ57DRh7O710asp9n/Game-Manager?node-id=0-1&t=6x6GfNQqZpAcgHF6-1)
