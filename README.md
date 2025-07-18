@@ -26,4 +26,16 @@ Ce projet est un gestionnaire de jeux qui permet aux joueurs de garder en mémoi
    docker-compose up --build
    ```
 
-6. Accédez à l'application via votre navigateur à l'adresse `http://localhost:3000`.
+6. Lancer les migrations de la base de données :
+
+   ```bash
+   docker exec game-manager-backend-1 bun run migrate
+   ```
+
+7. (Optionnel) Si vous souhaitez exécuter les tests, utilisez la commande suivante :
+
+   ```bash
+   docker exec game-manager-backend-1 bun run seed:run
+   ```
+
+8. Accédez à l'application via votre navigateur à l'adresse `http://localhost:3000`.
