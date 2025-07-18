@@ -12,14 +12,24 @@ class GameRepository {
 			limit = 10,
 			sortBy = "rating",
 			sortOrder = "desc",
+			playerId,
 		} = queryParams;
 
 		let query = Game.query((qb) => {
-			qb.leftJoin("game_player", "games.id", "game_player.game_id")
-				.select("games.*")
-				.select("game_player.rating")
-				.select("game_player.minutes_spent")
-				.select("game_player.added_at");
+			if (playerId) {
+				qb.innerJoin("game_player", "games.id", "game_player.game_id")
+					.select("games.*")
+					.select("game_player.rating")
+					.select("game_player.minutes_spent")
+					.select("game_player.added_at")
+					.where("game_player.player_id", playerId);
+			} else {
+				qb.leftJoin("game_player", "games.id", "game_player.game_id")
+					.select("games.*")
+					.select("game_player.rating")
+					.select("game_player.minutes_spent")
+					.select("game_player.added_at");
+			}
 
 			if (search) {
 				qb.where("title", "like", `%${search}%`);
@@ -27,7 +37,6 @@ class GameRepository {
 
 			qb.groupBy("games.id");
 
-			// Apply sorting
 			if (sortBy === "rating") {
 				qb.orderByRaw(`COALESCE(game_player.rating, 0) ${sortOrder}`);
 			} else if (sortBy === "minutes_spent") {
@@ -38,7 +47,6 @@ class GameRepository {
 				qb.orderBy(sortBy, sortOrder);
 			}
 
-			// Pagination
 			const offset = (page - 1) * limit;
 			qb.limit(limit).offset(offset);
 		});
@@ -46,6 +54,12 @@ class GameRepository {
 		const games = await query.fetchAll();
 
 		const totalQuery = Game.query((qb) => {
+			qb.leftJoin("game_player", "games.id", "game_player.game_id");
+
+			if (playerId) {
+				qb.where("game_player.player_id", playerId);
+			}
+
 			if (search) {
 				qb.where("title", "like", `%${search}%`);
 			}

@@ -23,12 +23,12 @@ export default function Library() {
 				setLoading(true);
 				setError(null);
 
-				const mostPlayedResponse = await gameApi.getAll({
+				const mostPlayedResponse = await gameApi.getUserGames({
 					sortBy: 'minutes_spent',
 					limit: 6
 				});
 
-				const bestRatedResponse = await gameApi.getAll({
+				const bestRatedResponse = await gameApi.getUserGames({
 					sortBy: 'rating',
 					limit: 6
 				});

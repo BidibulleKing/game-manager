@@ -83,6 +83,11 @@ export const gameApi = {
 		return fetchApi<SearchResultType<GameType>>(url);
 	},
 
+	getUserGames: async (params?: SearchParams): Promise<SearchResultType<GameType>> => {
+		const url = buildUrl(`${API_CONFIG.ENDPOINTS.GAMES}/my-games`, params);
+		return fetchApi<SearchResultType<GameType>>(url);
+	},
+
 	/**
 	 * Get a game by ID.
 	 * 
