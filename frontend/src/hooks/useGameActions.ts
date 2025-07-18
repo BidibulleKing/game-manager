@@ -8,6 +8,7 @@ interface UseGameActionsResult {
 	createGame: (gameData: Omit<GameType, 'id'>) => Promise<GameType | null>;
 	updateGame: (id: number | string, gameData: Partial<Omit<GameType, 'id'>>) => Promise<GameType | null>;
 	deleteGame: (id: number | string) => Promise<boolean>;
+	removeFromLibrary: (id: number | string) => Promise<boolean>;
 	getGame: (id: number | string) => Promise<GameType | null>;
 }
 
@@ -71,6 +72,24 @@ export function useGameActions(): UseGameActionsResult {
 		}
 	}, []);
 
+	const removeFromLibrary = useCallback(async (id: number | string): Promise<boolean> => {
+		setLoading(true);
+		setError(null);
+
+		try {
+			await api.games.removeFromLibrary(id);
+
+			return true;
+		} catch (err) {
+			const errorMessage = err instanceof Error ? err.message : 'Erreur lors de la suppression du jeu de la bibliothèque';
+			setError(errorMessage);
+
+			return false;
+		} finally {
+			setLoading(false);
+		}
+	}, []);
+
 	const getGame = useCallback(async (id: number | string): Promise<GameType | null> => {
 		setLoading(true);
 		setError(null);
@@ -93,6 +112,7 @@ export function useGameActions(): UseGameActionsResult {
 		createGame,
 		updateGame,
 		deleteGame,
+		removeFromLibrary,
 		getGame,
 	};
 }

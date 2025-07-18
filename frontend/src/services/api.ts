@@ -62,6 +62,10 @@ const fetchApi = async <T>(url: string, options?: RequestInit): Promise<T> => {
 			throw new ApiError(response.status, response.statusText);
 		}
 
+		if (response.status === 204 || response.headers.get('content-length') === '0') {
+			return undefined as T;
+		}
+
 		return await response.json();
 	} catch (error) {
 		if (error instanceof ApiError) {
@@ -136,6 +140,13 @@ export const gameApi = {
 	 */
 	delete: async (id: number | string): Promise<void> => {
 		const url = buildUrl(`${API_CONFIG.ENDPOINTS.GAMES}/${id}`);
+		return fetchApi<void>(url, {
+			method: 'DELETE',
+		});
+	},
+
+	removeFromLibrary: async (id: number | string): Promise<void> => {
+		const url = getApiUrl(`${API_CONFIG.ENDPOINTS.GAMES}/${id}/remove-from-library`);
 		return fetchApi<void>(url, {
 			method: 'DELETE',
 		});

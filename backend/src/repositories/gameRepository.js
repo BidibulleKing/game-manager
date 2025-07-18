@@ -120,6 +120,16 @@ class GameRepository {
 
 		return true;
 	}
+
+	async removePlayerFromGame(gameId, playerId) {
+		const bookshelf = require("../services/db/db");
+		const deleted = await bookshelf
+			.knex("game_player")
+			.where({ game_id: gameId, player_id: playerId })
+			.del();
+
+		return deleted > 0;
+	}
 }
 
 module.exports = new GameRepository();

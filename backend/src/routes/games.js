@@ -11,6 +11,11 @@ router.post("/", authMiddleware, gameController.create);
 
 router.put("/:id", authMiddleware, gameController.update);
 
+router.delete(
+	"/:id/remove-from-library",
+	authMiddleware,
+	gameController.removeFromUserLibrary
+);
 router.delete("/:id", authMiddleware, gameController.delete);
 
 module.exports = router;

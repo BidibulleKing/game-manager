@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { useGameActions } from "../hooks/useGameActions";
 import type { GameType } from "../types/GameType";
 import Topbar from "../components/topbar/Topbar";
 import styles from './Library.module.css';
@@ -10,6 +11,7 @@ import GameModal from "../components/gamemodal/GameModal";
 
 export default function Library() {
 	const { isAuthenticated, loading: authLoading, logout } = useAuth();
+	const { removeFromLibrary } = useGameActions();
 	const [mostPlayed, setMostPlayed] = useState<GameType[]>([]);
 	const [bestRated, setBestRated] = useState<GameType[]>([]);
 	const [loading, setLoading] = useState(true);
@@ -55,6 +57,23 @@ export default function Library() {
 	const handleGameAdded = (newGame: GameType) => {
 		setMostPlayed(prev => [newGame, ...prev.slice(0, 5)]);
 		setBestRated(prev => [newGame, ...prev.slice(0, 5)]);
+	};
+
+	const handleDeleteGame = async (gameId: number | string) => {
+		if (window.confirm('Êtes-vous sûr de vouloir supprimer ce jeu de votre bibliothèque ?')) {
+			try {
+				const success = await removeFromLibrary(gameId);
+				if (success) {
+					setMostPlayed(prev => prev.filter(game => game.id !== gameId));
+					setBestRated(prev => prev.filter(game => game.id !== gameId));
+				} else {
+					alert('Erreur lors de la suppression du jeu');
+				}
+			} catch (error) {
+				console.error('Erreur lors de la suppression:', error);
+				alert('Erreur lors de la suppression du jeu');
+			}
+		}
 	};
 
 	const handleLogout = () => {
@@ -125,15 +144,17 @@ export default function Library() {
 				</div>
 
 				<div className={styles.cardList}>
-					{mostPlayed.map((game, index) => (
+					{mostPlayed.map((game) => (
 						<GameCard
-							key={index}
+							key={game.id}
 							game={game}
 							showEditButton={true}
 							onEdit={() => {
 								console.log('Édition du jeu:', game.title);
 								alert(`Édition du jeu "${game.title}" à implémenter`);
 							}}
+							showDeleteButton={true}
+							onDelete={() => handleDeleteGame(game.id!)}
 						/>
 					))}
 				</div>
@@ -145,15 +166,17 @@ export default function Library() {
 				</div>
 
 				<div className={styles.cardList}>
-					{bestRated.map((game, index) => (
+					{bestRated.map((game) => (
 						<GameCard
-							key={index}
+							key={game.id}
 							game={game}
 							showEditButton={true}
 							onEdit={() => {
 								console.log('Édition du jeu:', game.title);
 								alert(`Édition du jeu "${game.title}" à implémenter`);
 							}}
+							showDeleteButton={true}
+							onDelete={() => handleDeleteGame(game.id!)}
 						/>
 					))}
 				</div>

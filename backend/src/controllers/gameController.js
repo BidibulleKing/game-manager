@@ -159,6 +159,27 @@ const gameController = {
 			res.status(500).json({ error: "Failed to delete game" });
 		}
 	},
+
+	removeFromUserLibrary: async (req, res) => {
+		const { id } = req.params;
+		try {
+			const removed = await GameRepository.removePlayerFromGame(
+				id,
+				req.user.id
+			);
+			if (removed) {
+				res.status(204).send();
+			} else {
+				res.status(404).json({
+					error: "Game not found in user library",
+				});
+			}
+		} catch (error) {
+			res.status(500).json({
+				error: "Failed to remove game from library",
+			});
+		}
+	},
 };
 
 module.exports = gameController;

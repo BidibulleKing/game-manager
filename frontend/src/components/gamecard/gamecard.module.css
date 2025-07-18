@@ -39,6 +39,12 @@
 	width: 100%;
 }
 
+.actions {
+	display: flex;
+	gap: 0.5rem;
+	flex-shrink: 0;
+}
+
 .editButton {
 	display: flex;
 	align-items: center;
@@ -57,6 +63,27 @@
 
 .editButton:hover {
 	transform: scale(1.1);
+}
+
+.deleteButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border: 2px solid var(--color-error);
+	border-radius: 100%;
+	background-color: var(--color-error);
+	color: var(--color-background);
+	font-size: 1.4rem;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.deleteButton:hover {
+	transform: scale(1.1);
+	background-color: var(--color-error);
 }
 
 .title {
