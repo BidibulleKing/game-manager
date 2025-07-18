@@ -17,6 +17,7 @@ export default function GameModal({ isOpen, onClose, onGameAdded }: GameModalPro
 		minutes_spent: '',
 	});
 	const [error, setError] = useState('');
+	const [isSubmitting, setIsSubmitting] = useState(false);
 
 	const { createGame, loading } = useGameActions();
 
@@ -24,10 +25,15 @@ export default function GameModal({ isOpen, onClose, onGameAdded }: GameModalPro
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
+
+		if (isSubmitting) return;
+
 		setError('');
+		setIsSubmitting(true);
 
 		if (!formData.title.trim() || !formData.cover.trim()) {
 			setError('Le titre et la cover sont requis');
+			setIsSubmitting(false);
 			return;
 		}
 
@@ -47,6 +53,8 @@ export default function GameModal({ isOpen, onClose, onGameAdded }: GameModalPro
 			}
 		} catch {
 			setError('Erreur lors de l\'ajout du jeu');
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
@@ -74,7 +82,7 @@ export default function GameModal({ isOpen, onClose, onGameAdded }: GameModalPro
 							value={formData.title}
 							onChange={handleChange}
 							required
-							disabled={loading}
+							disabled={loading || isSubmitting}
 							placeholder="Nom du jeu"
 						/>
 					</div>
@@ -87,7 +95,7 @@ export default function GameModal({ isOpen, onClose, onGameAdded }: GameModalPro
 							value={formData.cover}
 							onChange={handleChange}
 							required
-							disabled={loading}
+							disabled={loading || isSubmitting}
 							placeholder="https://example.com/cover.jpg"
 						/>
 					</div>
@@ -99,7 +107,7 @@ export default function GameModal({ isOpen, onClose, onGameAdded }: GameModalPro
 							name="rating"
 							value={formData.rating}
 							onChange={handleChange}
-							disabled={loading}
+							disabled={loading || isSubmitting}
 							min="0"
 							max="5"
 							step="0.1"
@@ -114,7 +122,7 @@ export default function GameModal({ isOpen, onClose, onGameAdded }: GameModalPro
 							name="minutes_spent"
 							value={formData.minutes_spent}
 							onChange={handleChange}
-							disabled={loading}
+							disabled={loading || isSubmitting}
 							min="0"
 							placeholder="0"
 						/>
@@ -122,8 +130,8 @@ export default function GameModal({ isOpen, onClose, onGameAdded }: GameModalPro
 
 					{error && <div className={styles.error}>{error}</div>}
 
-					<button type="submit" disabled={loading} className={styles.submitBtn}>
-						{loading ? 'Ajout...' : 'Ajouter le jeu'}
+					<button type="submit" disabled={loading || isSubmitting} className={styles.submitBtn}>
+						{loading || isSubmitting ? 'Ajout...' : 'Ajouter le jeu'}
 					</button>
 				</form>
 			</div>
