@@ -4,4 +4,5 @@ export type GameType = {
 	cover: string;
 	rating: number;
 	minutes_spent: number;
+	added_at?: string;
 }

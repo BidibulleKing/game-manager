@@ -36,9 +36,7 @@ export function useUrlParams(initialParams: SearchParams = {}) {
 
 	// Update the URL when the parameters change
 	const updateParams = useCallback((newParams: Partial<SearchParams>) => {
-		console.log('🔄 updateParams called with:', newParams);
 		const updatedParams = { ...params, ...newParams };
-		console.log('📝 updatedParams:', updatedParams);
 		setParams(updatedParams);
 
 		const urlParams = new URLSearchParams();
@@ -49,7 +47,6 @@ export function useUrlParams(initialParams: SearchParams = {}) {
 		if (updatedParams.sortBy) urlParams.set('sortBy', updatedParams.sortBy);
 
 		const newUrl = `${window.location.pathname}${urlParams.toString() ? '?' + urlParams.toString() : ''}`;
-		console.log('🌐 updating URL to:', newUrl);
 		window.history.replaceState({}, '', newUrl);
 	}, [params]);
 

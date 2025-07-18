@@ -43,6 +43,10 @@ class GameRepository {
 				qb.orderByRaw(
 					`COALESCE(game_player.minutes_spent, 0) ${sortOrder}`
 				);
+			} else if (sortBy === "added_at") {
+				qb.orderByRaw(
+					`COALESCE(game_player.added_at, games.created_at) ${sortOrder}`
+				);
 			} else {
 				qb.orderBy(sortBy, sortOrder);
 			}
