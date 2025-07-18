@@ -15,8 +15,7 @@
 	background: var(--color-background);
 	border-radius: var(--border-radius);
 	border: var(--border-width) solid var(--color-primary);
-	width: 220px;
-	height: 320px;
+	width: 300px;
 	overflow-y: auto;
 }
 

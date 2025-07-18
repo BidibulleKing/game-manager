@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
 		{
 			id: 1,
 			title: "The Witcher 3: Wild Hunt",
-			cover: "https://static.cdprojektred.com/cms.cdprojektred.com/16x9_big/fcaa0ba91e2368e2aef8c0d556692307768fad49-1920x1080.jpg",
+			cover: "https://p325k7wa.twic.pics/high/the-witcher/the-witcher-3-wild-hunt/00-page-setup/tw3-new-header-mobile.jpg",
 		},
 		{
 			id: 2,
