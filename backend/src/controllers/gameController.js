@@ -122,8 +122,7 @@ const gameController = {
 				res.status(404).json({ error: "Game not found" });
 			}
 		} catch (error) {
-			res.json({ error: error.message });
-			// res.status(500).json({ error: "Failed to fetch game" });
+			res.status(500).json({ error: "Failed to fetch game" });
 		}
 	},
 
@@ -155,8 +154,7 @@ const gameController = {
 
 			res.status(201).json(gameWithPlayerData);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
-			// res.status(500).json({ error: "Failed to create game" });
+			res.status(500).json({ error: "Failed to create game" });
 		}
 	},
 

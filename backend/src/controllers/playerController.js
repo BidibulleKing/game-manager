@@ -44,8 +44,7 @@ const playerController = {
 				});
 			}
 		} catch (error) {
-			res.json({ error: error.message });
-			// res.status(500).json({ error: "Failed to fetch players" });
+			res.status(500).json({ error: "Failed to fetch players" });
 		}
 	},
 
@@ -59,8 +58,7 @@ const playerController = {
 				res.status(404).json({ error: "Player not found" });
 			}
 		} catch (error) {
-			res.json({ error: error.message });
-			// res.status(500).json({ error: "Failed to fetch player" });
+			res.status(500).json({ error: "Failed to fetch player" });
 		}
 	},
 
