@@ -101,6 +101,25 @@ class GameRepository {
 		await game.destroy();
 		return true;
 	}
+
+	async addPlayerToGame(gameId, playerId, playerData = {}) {
+		const game = await this.findById(gameId);
+
+		if (!game) {
+			throw new Error("Game not found");
+		}
+
+		const bookshelf = require("../services/db/db");
+		await bookshelf.knex("game_player").insert({
+			game_id: gameId,
+			player_id: playerId,
+			rating: playerData.rating || 0,
+			minutes_spent: playerData.minutes_spent || 0,
+			added_at: new Date(),
+		});
+
+		return true;
+	}
 }
 
 module.exports = new GameRepository();

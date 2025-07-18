@@ -6,6 +6,7 @@ import styles from './Library.module.css';
 import GameCard from "../components/gamecard/GameCard";
 import { gameApi } from "../services/api";
 import AuthModal from "../components/auth/AuthModal";
+import GameModal from "../components/gamemodal/GameModal";
 
 export default function Library() {
 	const { isAuthenticated, loading: authLoading, logout } = useAuth();
@@ -14,6 +15,7 @@ export default function Library() {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const [showAuthModal, setShowAuthModal] = useState(false);
+	const [showGameModal, setShowGameModal] = useState(false);
 
 	useEffect(() => {
 		if (!isAuthenticated || authLoading) return;
@@ -47,8 +49,12 @@ export default function Library() {
 	}, [isAuthenticated, authLoading]);
 
 	const handleAddGame = () => {
-		console.log('Ajout de jeu demandé');
-		alert('Fonctionnalité d\'ajout de jeu à implémenter');
+		setShowGameModal(true);
+	};
+
+	const handleGameAdded = (newGame: GameType) => {
+		setMostPlayed(prev => [newGame, ...prev.slice(0, 5)]);
+		setBestRated(prev => [newGame, ...prev.slice(0, 5)]);
 	};
 
 	const handleLogout = () => {
@@ -152,6 +158,12 @@ export default function Library() {
 					))}
 				</div>
 			</section>
+
+			<GameModal
+				isOpen={showGameModal}
+				onClose={() => setShowGameModal(false)}
+				onGameAdded={handleGameAdded}
+			/>
 		</>
 	);
 }

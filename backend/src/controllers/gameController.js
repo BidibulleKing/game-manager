@@ -96,7 +96,7 @@ const gameController = {
 	},
 
 	create: async (req, res) => {
-		const { title, cover } = req.body;
+		const { title, cover, rating = 0, minutes_spent = 0 } = req.body;
 		try {
 			const newGame = await GameRepository.create({
 				title,
@@ -105,9 +105,26 @@ const gameController = {
 			if (!newGame) {
 				return res.status(400).json({ error: "Failed to create game" });
 			}
-			res.status(201).json(newGame);
+
+			await GameRepository.addPlayerToGame(
+				newGame.get("id"),
+				req.user.id,
+				{
+					rating: parseFloat(rating),
+					minutes_spent: parseInt(minutes_spent),
+				}
+			);
+
+			const gameWithPlayerData = {
+				...newGame.toJSON(),
+				rating: parseFloat(rating),
+				minutes_spent: parseInt(minutes_spent),
+			};
+
+			res.status(201).json(gameWithPlayerData);
 		} catch (error) {
-			res.status(500).json({ error: "Failed to create game" });
+			res.status(500).json({ error: error.message });
+			// res.status(500).json({ error: "Failed to create game" });
 		}
 	},
 
