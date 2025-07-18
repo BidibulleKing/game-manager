@@ -13,7 +13,8 @@ interface UseSearchResult<T> {
 
 export function useSearch<T extends GameType | PlayerType>(
 	type: 'games' | 'players',
-	params: SearchParams
+	params: SearchParams,
+	userOnly: boolean = false
 ): UseSearchResult<T> {
 	const [data, setData] = useState<SearchResultType<T> | null>(null);
 	const [loading, setLoading] = useState(false);
@@ -24,14 +25,14 @@ export function useSearch<T extends GameType | PlayerType>(
 		setError(null);
 
 		try {
-			const result = await getDataByType<T>(type, params);
+			const result = await getDataByType<T>(type, params, userOnly);
 			setData(result);
 		} catch (err) {
 			setError(err instanceof Error ? err.message : 'Une erreur est survenue');
 		} finally {
 			setLoading(false);
 		}
-	}, [type, params]);
+	}, [type, params, userOnly]);
 
 	useEffect(() => {
 		fetchData();

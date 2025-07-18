@@ -16,6 +16,9 @@ export default function Searchbar() {
 	}, [location]);
 
 	const getPlaceholder = () => {
+		if (location.includes('/library')) {
+			return 'Rechercher dans ma bibliothèque...';
+		}
 		return searchType === 'players'
 			? 'Rechercher des joueurs...'
 			: 'Rechercher des jeux...';
@@ -23,7 +26,12 @@ export default function Searchbar() {
 
 	const handleSearch = () => {
 		if (search.trim()) {
-			setLocation(`/${searchType}/search?search=${encodeURIComponent(search.trim())}`);
+			// Si on est dans la Library, on recherche dans les jeux de l'utilisateur
+			if (location.includes('/library')) {
+				setLocation(`/games/my-search?search=${encodeURIComponent(search.trim())}`);
+			} else {
+				setLocation(`/${searchType}/search?search=${encodeURIComponent(search.trim())}`);
+			}
 		}
 	};
 

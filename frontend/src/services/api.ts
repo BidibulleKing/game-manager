@@ -249,9 +249,13 @@ export const api = {
  */
 export const getDataByType = async <T extends GameType | PlayerType>(
 	type: 'games' | 'players',
-	params?: SearchParams
+	params?: SearchParams,
+	userOnly: boolean = false
 ): Promise<SearchResultType<T>> => {
 	if (type === 'games') {
+		if (userOnly) {
+			return gameApi.getUserGames(params) as Promise<SearchResultType<T>>;
+		}
 		return gameApi.getAll(params) as Promise<SearchResultType<T>>;
 	} else {
 		return playerApi.getAll(params) as Promise<SearchResultType<T>>;

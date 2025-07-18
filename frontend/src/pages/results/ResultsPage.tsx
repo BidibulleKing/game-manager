@@ -10,7 +10,7 @@ import type { SearchParams } from '../../types/SearchResultType';
 import styles from './results.module.css';
 
 interface ResultsPageProps {
-	type: 'games' | 'players';
+	type: 'games' | 'players' | 'user-games';
 	title: string;
 	initialParams?: SearchParams;
 }
@@ -19,12 +19,14 @@ export default function ResultsPage({ type, title, initialParams = {} }: Results
 	const defaultParams = {
 		page: 1,
 		limit: 12,
-		sortBy: type === 'games' ? 'rating' : 'minutes_spent',
+		sortBy: (type === 'games' || type === 'user-games') ? 'rating' : 'minutes_spent',
 		...initialParams
 	};
 
 	const { params, updateParams } = useUrlParams(defaultParams);
-	const { data: results, loading, error, refetch } = useSearch(type, params);
+	// Pour user-games, on passe 'games' comme type mais avec un flag pour indiquer qu'on veut les jeux de l'utilisateur
+	const searchType = type === 'user-games' ? 'games' : type;
+	const { data: results, loading, error, refetch } = useSearch(searchType, params, type === 'user-games');
 
 	const handlePageChange = (page: number) => {
 		updateParams({ page });
@@ -43,7 +45,7 @@ export default function ResultsPage({ type, title, initialParams = {} }: Results
 		: 'default';
 
 	const renderCard = (item: GameType | PlayerType, index: number) => {
-		if (type === 'games') {
+		if (type === 'games' || type === 'user-games') {
 			return <GameCard key={index} game={item as GameType} />;
 		} else {
 			return <PlayerCard key={index} card={item as PlayerType} />;
